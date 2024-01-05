@@ -1,0 +1,25 @@
+// Define the variables
+bool p = true;  // Change this to your desired value
+bool q = false; // Change this to your desired value
+
+// Define the LED pins
+int ledPinS1 = 8;
+int ledPinS2 = 9;
+
+void setup() {
+  // Initialize the LED pins as output
+  pinMode(ledPinS1, OUTPUT);
+  pinMode(ledPinS2, OUTPUT);
+}
+
+void loop() {
+  // Calculate the expressions
+  bool S1 = (!p || (p && q)) == q;
+  bool S2 = q == (!p || (p && q));
+
+  // Control the LEDs based on the results
+  digitalWrite(ledPinS1, S1 ? HIGH : LOW);
+  digitalWrite(ledPinS2, S2 ? HIGH : LOW);
+
+  delay(1000); // Wait for a second
+}
