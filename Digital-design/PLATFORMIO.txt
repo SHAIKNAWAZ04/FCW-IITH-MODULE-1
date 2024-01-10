@@ -1,25 +1,27 @@
-// Define the variables
-bool p = true;  // Change this to your desired value
-bool q = false; // Change this to your desired value
+// Define the input pins for B and C
+#define B_PIN 2
+#define C_PIN 3
 
-// Define the LED pins
-int ledPinS1 = 8;
-int ledPinS2 = 9;
+// Define the output pin for !B.C
+#define OUT_PIN 13
 
 void setup() {
-  // Initialize the LED pins as output
-  pinMode(ledPinS1, OUTPUT);
-  pinMode(ledPinS2, OUTPUT);
+  // Set the input pins as inputs with pull-up resistorsp
+  pinMode(B_PIN, INPUT_PULLUP);
+  pinMode(C_PIN, INPUT_PULLUP);
+
+  // Set the output pin as output
+  pinMode(OUT_PIN, OUTPUT);
 }
 
 void loop() {
-  // Calculate the expressions
-  bool S1 = (!p || (p && q)) == q;
-  bool S2 = q == (!p || (p && q));
+  // Read the values of B and C
+  bool B = digitalRead(B_PIN) ;
+  bool C = digitalRead(C_PIN) ;
 
-  // Control the LEDs based on the results
-  digitalWrite(ledPinS1, S1 ? HIGH : LOW);
-  digitalWrite(ledPinS2, S2 ? HIGH : LOW);
+  // Calculate !B.C using logical operators
+  bool result= B&&C;
 
-  delay(1000); // Wait for a second
+  // Write the result to the output pin
+  digitalWrite(OUT_PIN, result);
 }
