@@ -1,0 +1,44 @@
+#include <avr/io.h>
+#include <util/delay.h>
+
+// Constants for pin numbers
+const int U_pin = 2;
+const int V_pin = 3;
+const int W_pin = 4;
+
+// Variables for Q1, Q2, Q3
+int Q1 = 0;
+int Q2 = 0;
+int Q3 = 0;
+
+void setup(void);
+void loop(void);
+
+int main(void) {
+  setup();
+
+  while (1) {
+    loop();
+  }
+
+  return 0;
+}
+
+void setup(void) {
+  // Set U_pin, V_pin, and W_pin as outputs
+  DDRD |= (1 << U_pin) | (1 << V_pin) | (1 << W_pin);
+}
+
+void loop(void) {
+  int X = !(Q2 || Q3);
+  int Y = Q1;
+  int Z = Q2;
+  Q1 = X;
+  Q2 = Y;
+  Q3 = Z;
+
+  // Set the corresponding pins based on the values of Q1, Q2, and Q3
+  PORTD = (Q1 << U_pin) | (Q2 << V_pin) | (Q3 << W_pin);
+
+  _delay_ms(3000);
+}
